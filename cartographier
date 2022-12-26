@@ -9,18 +9,29 @@ def angleBizarreEnRadians(a) :  ##Mathy, tes angles dans [-1,1], j'ai pas capte,
     pass
     
     
-def modifierCarte(carte,dim,coordonnees) : ## carte c'est un matrice, dim ses dimensions, et les coordonnees sont cartesiennes
+def modifierCarte(carte,coordonnees) : ## carte c'est un matrice, et les coordonnees sont cartesiennes
     x,y = coordonnees
+    dim = carte.shape()
     xMax, yMax = dim[1]//2, dim[0]
     if x >= -xMax and x <= xMax and y<= yMax :
         carte[math.ceil(y),math.ceil(x)+xMax] = 1
 
 
-def cartographier(amax,apas,dim) :  ## on donne des dim, et il cree un tableau des alentours Ensuite il met 1 a chaque fois qu'il y a un obstacle
-    iterable = np.linspace(-amax,amax,apas)
+def cartographier(imax,ipas,dim) :  ## on donne des dim, et il cree un tableau des alentours Ensuite il met 1 a chaque fois qu'il y a un obstacle
+    iterable = np.linspace(-imax,imax,ipas)
     carte = np.zeros(dim[0],dim[1])
     for i in iterable :
         servo.value = i
         modifierCarte(carte,dim,polaireEnCartesien(distance(), angleBizarreEnRadians(i)))
        
     return carte 
+
+def creerFonction(carte) : ## cree la fonction qui a x associe le plus petit y ou il y a un obstacle 
+    dim = carte.shape()
+    Y = [0]*dim[1]
+    for x in range(dim[1]) :
+        for y in range(dim[0]) :
+            if carte[y,x] == 1 :
+                Y[x] = y
+                break
+    return Y
