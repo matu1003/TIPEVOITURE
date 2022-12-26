@@ -1,0 +1,17 @@
+import numpy as np
+import math
+
+def polaireEnCartesien(r,a) :
+    return r*np.sin(a), r*np.cos(a)
+
+def modifierCarte(carte,coordonnees) :
+    x,y = coordonnees
+    if x >= -100 and x <= 100 and y<= 1000 :
+        carte[math.ceil(y),math.ceil(x)+100] = 1
+        
+def cartographier(amax,apas) :
+    iterable = np.linspace(-amax,amax,apas)
+    carte = np.zeros(1000,200)
+    for i in iterable :
+        servo.value = i
+        modifierCarte(carte,polaireEnCartesien(distance, i))
