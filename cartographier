@@ -4,14 +4,23 @@ import math
 def polaireEnCartesien(r,a) :
     return r*np.sin(a), r*np.cos(a)
 
-def modifierCarte(carte,coordonnees) :
+
+def angleBizarreEnRadians(a) :
+    pass
+    
+    
+def modifierCarte(carte,dim,coordonnees) :
     x,y = coordonnees
-    if x >= -100 and x <= 100 and y<= 1000 :
-        carte[math.ceil(y),math.ceil(x)+100] = 1
-        
-def cartographier(amax,apas) :
+    xMax, yMax = dim[1]//2, dim[0]
+    if x >= -xMax and x <= xMax and y<= yMax :
+        carte[math.ceil(y),math.ceil(x)+xMax] = 1
+
+
+def cartographier(amax,apas,dim) :
     iterable = np.linspace(-amax,amax,apas)
-    carte = np.zeros(1000,200)
+    carte = np.zeros(dim[0],dim[1])
     for i in iterable :
         servo.value = i
-        modifierCarte(carte,polaireEnCartesien(distance, i))
+        modifierCarte(carte,dim,polaireEnCartesien(distance(), angleBizarreEnRadians(i)))
+       
+    return carte 
