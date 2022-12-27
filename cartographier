@@ -5,8 +5,9 @@ def polaireEnCartesien(r,a) :  ##Tout est dans le titre
     return r*np.sin(a), r*np.cos(a)
 
 
-def angleBizarreEnRadians(a) :  ##Mathy, tes angles dans [-1,1], j'ai pas capte, donc tu pourras compléter ;)
-    pass
+def angleBizarreEnRadians(a):
+    '''[-1,1] -> [-pi/4,pi/4]'''
+    return np.pi/4 * a
     
     
 def modifierCarte(carte,coordonnees) : ## carte c'est un matrice, et les coordonnees sont cartesiennes
