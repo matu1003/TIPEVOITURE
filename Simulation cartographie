@@ -1,0 +1,71 @@
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+
+
+## dim = [quelconque, pair]
+
+def polaireEnCartesien(r,a) :  ##Tout est dans le titre
+    return r*np.sin(a), r*np.cos(a)    
+    
+def modifierCarte(carte,coordonnees) : ## carte c'est un matrice, et les coordonnees sont cartesiennes
+    x,y = coordonnees
+    dim = np.shape(carte)
+    xMax, yMax = dim[1]//2, dim[0]
+    if x >= -xMax and x <= xMax and y<= yMax :
+        carte[math.floor(y),math.floor(x)+xMax] = 1
+
+
+def cartographier(imax,ipas,dim,env) :  ## on donne des dim, et il cree un tableau des alentours Ensuite il met 1 a chaque fois qu'il y a un obstacle
+    carte = np.zeros(dim)
+    angle = -imax
+    while angle <= imax :
+        modifierCarte(carte,polaireEnCartesien(distance(angle,env), angle))
+        angle += ipas
+       
+    return carte 
+
+
+def creerEnvironnement() :
+    env = np.zeros([2000,1000])
+    env[1000:1400,200] = 1
+    env[1400,200:500] = 1
+    env[200, 700:900] = 1
+    env[1600:1800,800] = 1
+    return env
+    
+def distance(angle,env) :
+    pas = 0.1
+    r = pas
+    dim = np.shape(env)
+    xMax, yMax = dim[1]//2, dim[0]
+    x,y = polaireEnCartesien(r,angle)
+    while x >= -xMax and x <= xMax and y <= yMax : 
+        if env[math.floor(y),math.floor(x)+xMax] == 1 :
+            return r 
+        r += pas
+        x,y = polaireEnCartesien(r,angle)
+    return r+12
+    
+def affichage(carte) :
+    dim = np.shape(carte)
+    X = []
+    Y = []
+    for x in range(dim[1]) :
+        for y in range(dim[0]) :
+            if carte[y,x] == 1 :
+                X.append(dim[1]-x-1)
+                Y.append(y)
+    plt.plot(Y,X, 'ro')
+    plt.axis([0,dim[0],0,dim[1]])
+    plt.show()
+    
+
+
+dim = [2000,1000]    
+env = creerEnvironnement()     
+affichage(env)
+ipas = 0.005
+imax = np.pi/2 - ipas 
+carte = cartographier(imax,ipas,dim,env)
+affichage(carte)
