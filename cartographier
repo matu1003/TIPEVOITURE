@@ -22,10 +22,14 @@ def modifierCarte(carte,coordonnees) : ## carte c'est un matrice, et les coordon
 
 def cartographier(imax,ipas,dim) :  ## on donne des dim, et il cree un tableau des alentours Ensuite il met 1 a chaque fois qu'il y a un obstacle
     carte = np.zeros(dim[0],dim[1])
+    for y in range(dim[0]) :                                                        ##new
+        for x in range(dim[1]) :                                                    ##new
+            if np.arctan(abs((x+(dim[1]//2))/y)) >= angleBizarreEnRadians(imax) :   ##new
+                carte[x,y] = -1                                                     ##new
     angle = -imax
     for while angle <= imax :
         servo.value = angle
-        modifierCarte(carte,dim,polaireEnCartesien(distance(), angleBizarreEnRadians(angle)))
+        modifierCarte(carte,polaireEnCartesien(distance(), angleBizarreEnRadians(angle)))
         angle += ipas
        
     return carte 
