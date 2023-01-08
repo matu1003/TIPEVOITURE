@@ -40,8 +40,8 @@ def test1servo(servo):
     
 def arret_obstacle(dt,motg,motd,capt):
     sleep(dt)
-    motd.vitesse(50)
-    motg.vitesse(50)
+    motd.vitesse(100)
+    motg.vitesse(100)
     motd.avancer()
     motg.avancer()
     while True:
