@@ -26,10 +26,10 @@ def cartographier(imax,ipas,dim,servo,capt) :  ## on donne des dim, et il cree u
     for x in range(dim[1]) :                                                      
         for y in range(1,dim[0]):                                                   
            if np.arctan(abs((x-(dim[1]/2))/y)) >= angleBizarreEnRadians(imax) :  
-                carte[y,x] = -1
+                carte[y,x] = .5
     angle = -imax
     servo.set(angle)
-    time.sleep(0.5)
+    time.sleep(0.2)
     while angle <= imax:
         time.sleep(0.1)
         servo.set(angle)

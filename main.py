@@ -36,7 +36,7 @@ capt = CaptUltrasson(26,19)
 # print(capt.distance())
 
 # arret_obstacle(0,motg,motd,capt)
-carte = cartographier(0.2,0.015,(400,500),servo,capt)
+carte = cartographier(1,0.01,(400,800),servo,capt)
 #print(carte)
 # affichage(carte)
 #arret_obstacle(0,motg,motd,capt)
